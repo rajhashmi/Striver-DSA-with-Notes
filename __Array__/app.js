@@ -278,12 +278,12 @@ function rotateArrayByDPlaceOptimal(array,D){
 
 function moveZerosToEnd(array){
     const n = array.length;
-    let zeroCounter = 0;
+    let zeroCounter = 0; 
     for(let i = 0; i < n; i++){
         if(array[i] == 0){
-            array.splice(i,1);
+            array.splice(i,1); 
             zeroCounter++;
-            i--;
+            i--; // decresing the length of array so not to skip any element that's why I am decreasing 
         }
     }
     for(let i = 0; i <= zeroCounter; i++){
@@ -292,44 +292,100 @@ function moveZerosToEnd(array){
     return array;
 }
 
-console.log(moveZerosToEnd([1,2,0,2,4,0,7,6,0,3]))
 
+//🤓 analysis :-> ; the time complexity will be  O(n^2) of moveZerosToEnd and space complexity will be O(1)
 
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
 
 // OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
+// 🤔 APPROUCH :-> I will use 2 pointer approauch j will always be in 0 and if i will travel and see if there is non-zero element in an array if it is we will swap it and increse the j;
+
+function moveZerosToEndOptimal(array){
+    let j = -1;
+    for(let i = 0; i < array.length;i++){
+        if(array[i] == 0){
+            j = i;
+            break;
+        }
+    }
+    for(let i = j+1; i < array.length; i++){
+        if(array[i] !== 0){
+            [array[j],array[i]] = [array[i],array[j]]
+            j++
+        }
+    }
+    return array
+}
+console.log(moveZerosToEndOptimal([1,2,0,3,0,8,6,0]))
 
 
+
+// 🤓 analysis :->  time complexity O(n) and SC will be O(1)
+
+
+// Question No. 7  =========================================================================================================
+
+// union of two sorted arrays
+
+// Problem link :-> https://www.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1
+
+// brute force :-> 
+// 🤔 APPROUCH :-> i will push all element in one array name unionArray and then I will use Set for unique 
+
+function unionSortdArray(array1, array2){
+    let unionArray = array1;
+    for(let i = 0; i< array2.length; i++){
+        unionArray.push(array2[i])
+    }
+    const union = Array.from(new Set(unionArray))
+    return union
+    
+}
+
+//🤓 analysis :-> loop will take O(n) and Set will take O(m) to the overall time complxity will be O(n+m) and space complexity will be O(n+m);
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->  using two pointer approuch the first thing is both are sorted and i will place i at array1 and j will array2 check if array1[i] is smaller or equal array2[j] if it is then check is that element is already present in an array if not then puh it
+
+
+function twoUnionArray(array1,array2){
+    let i = 0;
+    let j = 0;
+    let union = []
+    while(i < array1.length && j < array2.length){
+        if(array1[i] <= array2[j]){
+            if(!union.includes(array1[i])){
+                union.push(array1[i])
+            }
+            i++;
+        }else{
+            if(!union.includes(array2[j])){
+                union.push(array2[j])
+            }
+            j++;
+        }
+    }
+    // if there still array2 element is left
+    while(j < array2.length){
+        if(!union.includes(array2[j])){
+            union.push(array2[j])
+        }
+        j++;
+    }
+    // if there still array1 element is leeft
+    while(i < array1.length){
+        if(!union.includes(array1[i])){
+            union.push(array1[i])
+        }
+        i++;
+    }
+    return union
+}
+console.log(twoUnionArray([1,2,3],[2,3,4,5,6]));
 
 
 
 
 // 🤓 analysis :-> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
