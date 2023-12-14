@@ -382,17 +382,479 @@ function twoUnionArray(array1,array2){
 }
 console.log(twoUnionArray([1,2,3],[2,3,4,5,6]));
 
+// 🤓 analysis :-> TC will be O(m + n) and SC O(m + n)
+
+
+
+// Question No. 8  =========================================================================================================
+
+// Intersection of two sorted array
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> so to solve this problem I'll use 2d loop and traversing every element and I'll check if there is same element is present in both array if it is then I'll push that element in new array name unionIntersection;
+
+function unionIntersectionBrute(array1,array2){
+    const unionIntersection = [];
+    for(let i = 0; i < array1.length; i++){
+        for(let j = 0; j < array2.length; j++){
+            if(array1[i] === array2[j]){
+                unionIntersection.push(array1[i]);
+                break;
+            }else if(array2[j] > array1[i]){
+                break; // Since the arrays are sorted, so no need to continue
+            }
+        }
+    }
+    return unionIntersection;
+}
+
+//🤓 analysis :-> Time Complexity: O(m * n) where m and n are the lengths of the two arrays. Space Complexity: O(min(m, n)) where m and n are the lengths of the two arrays.
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :-> i'll use two pointer approuch i and j, i will handle array1 and j will array2 if array1[i] is equal to array2[j] then we will puch into a result array or if array1[i] is smaller then array2[j] then I'll increment i++ else increment j
+
+    function unionIntersectionOptimal(array1,array2){
+        const result = [];
+        let i = 0;
+        let j = 0;
+        while(i < array1.length && j < array2.length){
+            if(array1[i] === array2[j]){
+                result.push(array1[i]);
+                i++;
+                j++;
+            }else if(array1[i] < array2[j]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        return result;
+    }
+
+
+// 🤓 analysis :-> Time Complexity: O(m + n) where m and n are the lengths of the two arrays. Space Complexity: O(min(m, n)) for the result array.
+
+// Question No. 9 =========================================================================================================
+
+// Missing number
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> first I'll find the min and max then I'll start loop to create a array and push all element in it and I'll iterate and check if any number is not present in the array.
+
+function missingNumberBrute(array){
+    const min = Math.min(...array);
+    const max = Math.max(...array);
+    const resultArray = [];
+    // to create a array from min to max;
+    for(let i = min;i <= max; i++){
+        resultArray.push(i)
+    }
+    // finding the missing element in an array
+    for(let i = 0; i < array.length; i++){
+        if(array[i] !== resultArray[i]){
+            return resultArray[i]
+        }
+    }
+}
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :- I will make array fill 0 in it by using fill method
+
+function missingNumberBetter(array){
+    const hash = Array.from({length:array.length+1}).fill(0);
+    for(let i = 0; i < array.length -1; i++){
+        hash[array[i]]++;
+    }
+    for(let i = 1; i <= array.length; i++){
+        if(hash[i] === 0){
+            return i
+        }
+    }
+    return -1
+}
 
 
 
 // 🤓 analysis :-> 
 
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->  
+
+    function missingNumberOptimal(array){
+        let xor1 = 0;
+        let xor2 = 0;
+
+        for(let i = 0; i< array.length - 1; i++){
+            xor2 = xor2 ^ array[i];
+            xor1 = xor1 ^ (i+1)
+        }
+        xor1 = xor1 ^ array.length;
+        return xor1 ^ xor2
+    }
+    
+
+// 🤓 analysis :-> 
+
+// Question No. 10 =========================================================================================================
+
+// Maximum consecutive number 1
+
+// Problem link :->
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->  I will make two variable name prviousMax and counter and check if ther is one then I'll increment counter and check if counter is bigger then the prviousMax if it is then the previousMax = counter; else if the array[i] is zero then counter will be 0 and the streak will break of one 
+
+    function maximumConsecutiveOne(array){
+        let previousMax = 0;
+        let counter = 0;
+        for(let i = 0; i < array.length; i++){
+            if(array[i] === 1){
+                counter++;
+                if(counter > previousMax){
+                    previousMax = counter
+                };
+            }else if (array[i] == 0){
+                counter = 0;
+            }
+        }
+        return previousMax
+    }
+
+// 🤓 analysis :-> 
+
+// Question No. 11 =========================================================================================================
+
+// find the number that appear once 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> same linear search on every element
+
+function findNumberAppearOnce(array){
+    for(let i = 0; i < array.length; i++){
+        let found = false;
+        for(let j = 0; j < array.length; j++){
+            if(i!=j && array[i] === array[j]){
+                found = true
+            }
+        }
+        if(!found){
+            return array[i]
+        }
+    }
+    return -1;
+}
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :- I'll use hash here 
+
+    function findNumberAppearOnceBetter(array){
+        const hash = Array.from({length:array.length + 1}).fill(0);
+        for(let i = 0; i< array.length; i++){
+            hash[array[i]]++
+        }
+        for(let i = 0; i < hash.length; i++){
+            if(hash[i] == 1){
+                return i;
+            }
+        }
+        
+        return -1
+    }
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
 
 
 
-// Question No.  =========================================================================================================
 
-//Q
+
+
+// 🤓 analysis :-> 
+
+// Question No. 12. =========================================================================================================
+
+// longest subarray with k sum
+
+// Problem link :->
+
+// brute force :->   
+// 🤔 APPROUCH :-> I'll generate array
+
+function longestSubarrayWithKSum(array, k){
+    let max = 0;
+    for(let i = 0; i < array.length; i++){
+        let s = 0;
+        for(let j = i; j < array.length; j++){
+           s += array[j];
+           if(s === k){
+            max = Math.max(max, j-i + 1)
+           }
+        };
+    };
+    return max
+};
+
+console.log(longestSubarrayWithKSum([1,2,3,1,1,1,4,2,3],3));
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> this solution is optimal one only for positive and negitive
+// 🤔 APPROUCH :-
+
+function longestSubarrayWithKSumBetter(array,k){
+    const hashMap = new Map();
+    let sum = 0;
+    let maxLen = 0;
+    for(let i = 0; i < array.length; i++){
+        sum += array[i];
+        if(sum === k){
+            maxLen = Math.max(maxLen, i+ 1);
+        }
+        let remening = sum - k;
+        if(hashMap.has(remening)){
+            let len = i - hashMap.get(remening);
+            maxLen = Math.max(len,maxLen);
+        }
+        if(!hashMap.has(remening)){
+            hashMap.set(sum,i)
+        }
+    }
+    return maxLen;
+
+}
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->   and this optimal one for positive and zeros
+// 🤔 APPROUCH :-> let's use two pointer approuch the condition will be if the sumbition exceed the k then we will move left towords the right and
+
+    function longestSubarrayWithKSumOptimal(array, k){
+        let left = 0;
+        let right = 0;
+        let maxLen = 0;
+        let sum = 0;
+        while(right <= array.length){
+            while(left <= right && sum > k){ // this loop will check if the sum is greeter then k then subtract sum - array[left] and increment left
+                sum -= array[left];
+                left++
+            };
+            if(sum === k){
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+            right++;
+            if(right < array.length){
+                sum+= array[right];
+            }
+        }
+    }
+
+
+// 🤓 analysis :-> 
+
+// Question No. 13 =========================================================================================================
+
+// Two sum
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> finding by linear search. 
+
+    function twoSum(array,target){
+        for(let i = 0; i < array.length;i++){
+            for(let j = i + 1; j < array.length; j++){
+                if(array[j] + array[i] == target && i!==j){
+                    return [i,j]
+                }
+            }
+        }
+    }
+
+//🤓 analysis :-> near TC O(n2);
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :- using hashMap
+
+    function twoSumBetter(array,target){
+        let hashMap = {};
+        for(let i = 0; i < array.length; i++){
+            let num = array[i];
+            let moreNeeded = target - num;
+            if(hashMap[moreNeeded]!== undefined){
+                return [hashMap[moreNeeded], i]
+            }
+            hashMap[num] = i;
+        }
+        return [-1,-1]
+    }
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  optimal approuch just for to return if there any two element is present an array or not
+// 🤔 APPROUCH :-> i'll sort the array and then i'll use 2 pointer approuch left will place 
+
+    function twoSumOptimal(array,target){
+        array.sort((a,b)=> a-b);
+        let left = 0;
+        let right = array.left - 1;
+        while(left < right){
+            let getting = array[left] + array[right];
+            if(getting === target){
+                return "YES";
+            }else if(getting < target){
+                left++
+            }else{
+                right++
+            }
+
+        }
+        return "NO";
+    }
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :->
+
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :->
+
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :->
+
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :->
+
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// 
 
 // Problem link :->
 
