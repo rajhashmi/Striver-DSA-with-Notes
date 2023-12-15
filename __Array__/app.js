@@ -724,88 +724,196 @@ function longestSubarrayWithKSumBetter(array,k){
 
 // 🤓 analysis :-> 
 
-// Question No. =========================================================================================================
+// Question No. 14 =========================================================================================================
 
-// 
+//  sort an array of 0, 1, 2;
 
 // Problem link :->
 
 // brute force :-> 
-// 🤔 APPROUCH :->
-
+// 🤔 APPROUCH :-> just use sort;
+    function sortAnArray012(array){
+        return array.sort();
+    }
 
 
 //🤓 analysis :-> ;
 
 // BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
+// 🤔 APPROUCH :- what i'll do is create three varaible name zero, one, two and then i'll count how many zero,one and two are there and then i'll do another three loop to chenge the values of original array
 
+function sortAnArray012Better(array) {
+    let zero = 0, one = 0, two = 0;
+    
+    // Count the occurrences of 0, 1, and 2
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === 0) {
+            zero++;
+        } else if (array[i] === 1) {
+            one++;
+        } else {
+            two++;
+        }
+    }
 
-
+    // Update array elements based on counts
+    for (let i = 0; i < zero; i++) {
+        array[i] = 0;
+    }
+    for (let i = zero; i < zero + one; i++) {
+        array[i] = 1;
+    }
+    for (let i = zero + one; i < zero + one + two; i++) {
+        array[i] = 2;
+    }
+}
 
 
 // 🤓 analysis :-> 
 
-// OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
+// OPTIMAL SOLUTION :->  DNF algorithm
+// 🤔 APPROUCH :-> if there is zero then i will swap the values and increse the low and mid else if there arr[mid] is 1 then just increse mid++ else swap arr[mid] with arr[high];
 
-
-
-
+var sortColors = function(nums) {
+    let low = 0;
+    let mid = 0;
+    let high = nums.length - 1;
+    while(mid <= high){
+        if(nums[mid] == 0){
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            mid++;
+            low++;
+        }else if(nums[mid] == 1){
+            mid++;
+        }else{
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
+        }
+    }
+ };
+ 
 
 
 // 🤓 analysis :-> 
 
-// Question No. =========================================================================================================
+// Question No. 15 =========================================================================================================
 
-// 
+// majority element with n/2
 
 // Problem link :->
 
 // brute force :-> 
-// 🤔 APPROUCH :->
+// 🤔 APPROUCH :-> let's do linear search
 
-
+ function majorityElement(array){
+    let gretterThen = Math.floor(array.length / 2);
+    for(let i = 0; i < array.length; i++){
+        let counter = 0;
+        for(let j = 0; j < array.length; j++){
+            if(array[i] === array[j]){
+                counter++
+            }
+        }
+        if(counter > gretterThen){
+            return array[i]
+        }
+    }
+    return -1;
+ }
 
 //🤓 analysis :-> ;
 
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
+// BETTER SOLUTION :->
+// 🤔 APPROUCH :- let's do hashMap;
 
-
-
-
+ function majorityElementBetter(array){
+    let gretterThen = Math.floor(array.length / 2);
+    let hashMap = {};
+    for(let i = 0; i < array.length; i++){
+        if(hashMap[array[i]]){
+            hashMap[array[i]]++
+            if(hashMap[array[i]] > gretterThen){
+                return array[i]
+            }
+        }else{
+            hashMap[array[i]] = 1
+        }
+    }
+    return -1
+ }
 
 // 🤓 analysis :-> 
 
-// OPTIMAL SOLUTION :->  
+// OPTIMAL SOLUTION :->  Moore's voting algo
 // 🤔 APPROUCH :->
 
-
-
-
+    function majorityElementOptimal(array){
+        let candidate;
+        let counter = 0;
+        for(let i = 0; i < array.length; i++){
+            if(counter == 0){
+                candidate = array[i];
+            }
+            if(array[i] === candidate){
+                counter++
+            }else{
+                counter--
+            }
+        }
+        counter = 0;
+        for(let i = 0; i < array.length; i++){
+            if(array[i] === candidate){
+                counter++
+            }
+        }
+        if(counter > Math.floor(array.length / 2)){
+            return candidate
+        }else{
+            return -1;
+        }
+    }
 
 
 // 🤓 analysis :-> 
 
-// Question No. =========================================================================================================
+// Question No.15 =========================================================================================================
 
-// 
+// longest subarray sum
 
 // Problem link :->
 
-// brute force :-> 
+// brute force :-> iterate 
 // 🤔 APPROUCH :->
 
+    function longestSubarraySum(array){
+        let maxLen = 0;
+        for(let i = 0; i< array.length; i++){
+            for(let i = j; j< array.length; j++){
+                let sum = 0;
+                for(let k = i; k <= sum; k++){
+                    sum += array[i]
+                    maxLen = Math.max(maxLen,sum)
+                }
+            }
+        }
+    }
 
-
-//🤓 analysis :-> ;
+//🤓 analysis :->  TC will be O(n3);
 
 // BETTER SOLUTION :-> 
 // 🤔 APPROUCH :-
 
+function longestSubarraySumBetter(array){
+    let maxLen = 0;
+    for(let i = 0; i< array.length; i++){
+        let sum = 0;
+        for(let i = j; j< array.length; j++){
+                sum += array[i]
+                maxLen = Math.max(maxLen,sum);
 
-
+        }
+    }
+}
 
 
 // 🤓 analysis :-> 
