@@ -918,6 +918,287 @@ function longestSubarraySumBetter(array){
 
 // 🤓 analysis :-> 
 
+// OPTIMAL SOLUTION :->  kadane's algo
+// 🤔 APPROUCH :->
+
+    function longestSubarraySumBetterOptimal(array){
+        let maximum = Number.MIN_SAFE_INTEGER;
+        let sum = 0;
+        for(let i = 0; i< array.length; i++){
+            sum+= array[i];
+            if( sum > maximum){
+                maximum = sum
+            }
+            if(sum < 0){
+                sum = 0
+            }
+        }
+        return maximum
+    }
+
+
+// 🤓 analysis :-> 
+
+// Question No.16. =========================================================================================================
+
+// rearange array elment by sign 
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> let's make a two array positive and negative loop on array and distribute values as in array then second loop to make changes in original remember this if there are equal positive and equal nagitive then the array will be even to the order we have to place this number should be in positive, negative,positive,negative like that and the positive will be on even index and the negative will be on odd index
+
+    function rearrangeArray(array){
+        const positive = [];
+        const negative = [];
+        for(let i = 0; i< array.length;i++){
+            if (array[i] > 0) {
+                positive.push(array[i]);
+              } else {
+                negative.push(array[i]);
+              }
+        }
+        for(let i = 0; i < array.length / 2; i++){
+            array[2*i] = positive[i];
+            array[2*i+1] = negative[i];
+        }
+        return array
+    }
+
+//🤓 analysis :-> ;
+
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :- let's do with two pointer approuch if array[i] is positive then pointer pos will be set and increment by 2 and same for that as well
+
+    function rearrangeArrayOptimal(array){
+        const result = [];
+        let pos = 0;
+        let neg = 1;
+        for(let i = 0; i < array.length; i++){
+            if(array[i] < 0){
+                result[neg] = array[i];
+                neg += 2;
+            }else{
+                result[pos] = array[i];
+                pos += 2;
+            }
+        }
+        return result;
+    }
+
+//  variety-2;
+// does'nt care any posi or neg number can be more in an array
+
+function rearrangeArrayVariety_2(array){
+    const pos = [];
+    const neg = [];
+    for(let i = 0; i < array.length; i++){
+        if(array[i] > 0){
+            pos.push(array[i]);
+        }else{
+            neg.push(array[i])
+        }
+    }
+    if(pos.length < neg.length){
+        for(let i = 0 ;i< pos.length;i++){
+            array[2*i] = pos[i];
+            array[2*i+1] = neg[i]
+        }
+        let index = pos.length * 2;
+        for(let i = pos.length; i < neg.length;i++){
+            array[index] = neg[i];
+            index++
+        }
+    }else{
+ 
+      for(let i=0;i<neg.length;i++){
+      
+        A[2*i] = pos[i];
+        A[2*i+1] = neg[i];
+    }
+      
+      let index = neg.length*2;
+      for(let i = neg.length;i<pos.length;i++){
+          
+          A[index] = pos[i];
+          index++;
+    }
+}
+}
+
+// 🤓 analysis :-> 
+
+
+// Question No. =========================================================================================================
+
+// leader in an array (evething on the right should be smaller);
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+function leaderInArray(array){
+    const leader= [];
+    for(let i = 0; i < array.length; i++){
+        let isLeader = true;
+        for(let j = i+1; j < array.length;j++){
+            if(array[i] < array[j]){
+                isLeader = false
+            }
+        }
+        if(isLeader){
+            leader.push(array[i]);
+        }
+    }
+}
+
+
+//🤓 analysis :-> ;
+
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :-> i'll make variable with min value and then i'll use reverse loop check if there is a value is gretter then the max variable if it is then the value is leader and reaign the max value to array[i] which is gretter then max;
+
+    function leaderOptimal(array){
+        let max = Number.MIN_SAFE_INTEGER;
+        const leader = [];
+        for(let i = array.length-1; i>=0;i--){
+            if(array[i]> max){
+                leader.push(array[i]);
+                max = array[i]
+            }
+        }
+        return leader
+    }
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// longest consecutive sequece
+
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+var longestConsecutive = function(nums) {
+    if(nums.length === 0){
+        return 0
+    }
+    nums.sort((a,b)=> a-b);
+    let longest = 1
+    let currCount = 0;
+    let lastSmaller = Number.MIN_SAFE_INTEGER;
+    for(let i =0; i < nums.length;i++){
+        if(nums[i]- 1 == lastSmaller){
+            currCount++;
+            lastSmaller = nums[i]
+        }else if(nums[i] !== lastSmaller){
+            currCount = 1;
+            lastSmaller = nums[i]
+        }
+        longest = Math.max(longest,currCount)
+    }
+    return longest
+};
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :-> returning 0 if the array is empty create set data to remove duplicates alse create varible to store longest streak with 1; loop through setData and check if there is no more previous value of current value then in if condition create 2 variable named currentNum = array[i] this for used to find the next element and create currentStreak = 1; use while with condition if setData have currentNum+1 then increase currentNum for to find the next and also increment currentStreak++ then longestStreak = Math.max(longestStreak,currentStreak)
+
+var longestConsecutive = function(nums) {
+    if(nums.length === 0){
+        return 0;
+    }
+   const numSet = new Set(nums);
+    let longestStreak = 1;
+   for(let num of numSet){
+       if(!numSet.has(num - 1)){
+           let currentNum = num;
+           let currentStreak = 1;
+           while(numSet.has(currentNum+ 1)){
+               currentNum++
+               currentStreak++
+           }
+        longestStreak = Math.max(longestStreak,currentStreak)
+       }
+   }
+   return longestStreak
+};
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// setMatrix to zero
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search and find zero and the call funciton to mark -1 one at all column and row
+
+    function setMatrixZeroBrute(array){
+        function markRow(i){
+            for(let j = 0 ;j < array[i].length; j++){
+                if(array[i][j]!== 0){
+                    array[i][j] = -1
+                }
+            }
+        }
+        function markCol(j){
+            for(let i = 0; i< array.length; i++){
+                if(array[i][j] !== 0){
+                    array[i][j] = -1;
+                }
+            }
+        }
+        for(let i = 0; i< array.length; i++){
+            for(let j = 0; j < array[i].length; j++){
+                if(array[i][j] === 0){
+                    markRow(i);
+                    markCol(j)
+                }
+            }
+        }
+        for(let i = 0; i< array.length; i++){
+            for(let j = 0; j < array[i].length; j++){
+                if(array[i][j] === -1){
+                    array[i][j] = 0;
+                }
+            }
+        }
+        return array
+    }
+    console.log(setMatrixZeroBrute([
+        [1,1,1],
+        [1,0,1],
+        [1,1,1]
+    ]));
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
 // OPTIMAL SOLUTION :->  
 // 🤔 APPROUCH :->
 
@@ -930,13 +1211,12 @@ function longestSubarraySumBetter(array){
 
 // Question No. =========================================================================================================
 
-// 
+// leader in an array (evething on the right should be smaller);
 
 // Problem link :->
 
 // brute force :-> 
-// 🤔 APPROUCH :->
-
+// 🤔 APPROUCH :-> linear search
 
 
 //🤓 analysis :-> ;
@@ -962,13 +1242,12 @@ function longestSubarraySumBetter(array){
 
 // Question No. =========================================================================================================
 
-// 
+// leader in an array (evething on the right should be smaller);
 
 // Problem link :->
 
 // brute force :-> 
-// 🤔 APPROUCH :->
-
+// 🤔 APPROUCH :-> linear search
 
 
 //🤓 analysis :-> ;
