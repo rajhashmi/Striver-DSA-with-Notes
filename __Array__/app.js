@@ -1191,6 +1191,219 @@ var longestConsecutive = function(nums) {
 //🤓 analysis :-> ;
 
 // BETTER SOLUTION :-> 
+// 🤔 APPROUCH :- instead of marking let's create two array with row and column and marking 1 if there is 0 in matrix
+
+    function setMatrixZeroBetter(array){
+        const col = Array.from({length :array.length}).fill(0);
+        const row = Array.from({length :array.length}).fill(0);
+        for(let i = 0; i< array.length; i++){
+            for(let j = 0; j < array[i].length; j++){
+                if(array[i][j] == 0){
+                    col[j] = 1;
+                    row[i] = 1;
+                }
+            }
+        }
+        for(let i = 0; i< array.length; i++){
+            for(let j = 0; j < array.length; j++){
+                if(row[i] || col[j]){
+                    array[i][j] =  0;
+                }
+            }
+        }
+        return [col,row,array];
+    }
+    console.log(setMatrixZeroBetter(
+        [
+            [1,1,1],
+            [1,0,1],
+            [1,1,1]
+        ]
+    ));
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// rotate Matrix by 90 deg
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> by travasing and then I'll placed array[i][j] in array[j][array.length-1]
+
+function rotateMatrix90Deg(array){
+    const matrix = Array.from(array);
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = 0; j < matrix[i].length; j++){
+            matrix[j][(matrix.length - 1) - i] = array[i][j]
+        }
+    }
+    return matrix
+
+}
+console.log(rotateMatrix90Deg([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+]));
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+function rotateMatrix90DegOptimal(array) {
+    console.log(array);
+    for (let i = 0; i < array.length; i++) {
+        for (let j = i; j < array[i].length; j++) {
+            [array[i][j], array[j][i]] = [array[j][i], array[i][j]];
+        }
+    }
+
+    for (let i = 0; i < array.length; i++) {
+        array[i].reverse();
+    }
+
+    return array;
+}
+
+console.log(rotateMatrix90DegOptimal([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]));
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// spiral traversal of  Matrix
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// leader in an array (evething on the right should be smaller);
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// leader in an array (evething on the right should be smaller);
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
+// 🤔 APPROUCH :-
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// OPTIMAL SOLUTION :->  
+// 🤔 APPROUCH :->
+
+
+
+
+
+
+// 🤓 analysis :-> 
+
+// Question No. =========================================================================================================
+
+// leader in an array (evething on the right should be smaller);
+
+// Problem link :->
+
+// brute force :-> 
+// 🤔 APPROUCH :-> linear search
+
+
+//🤓 analysis :-> ;
+
+// BETTER SOLUTION :-> 
 // 🤔 APPROUCH :-
 
 
