@@ -1300,27 +1300,40 @@ console.log(rotateMatrix90DegOptimal([
 
 // Question No. =========================================================================================================
 
-// spiral traversal of  Matrix
-
-// Problem link :->
-
-// brute force :-> 
-// 🤔 APPROUCH :-> linear search
-
-
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
+// 3 sum 
 
 // OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
+// 🤔 APPROUCH :-> using pointer approuch first sorting array there will be three pointer i,j,k i will be constant and j will be front of i and k will be in last element using while loop in for loop  in while let's add there element if the sum is smaller then 0 then we have to increment so let's increment in j++ if sum is smaller then the gretter then zero then we have to decrese else mean we find zero push three element in ans array then increment j and decrement k NOTE we dont have to take reapeted numbers so well will increment and decreament till it is not equal to the previous zeros elements
+var threeSum = function(nums) {
+   nums.sort((a, b) => a - b);
+   const ans = [];
+
+   for (let i = 0; i < nums.length; i++) {
+       if (i !== 0 && nums[i] === nums[i - 1]) continue;
+
+       let j = i + 1;
+       let k = nums.length - 1;
+
+       while (j < k) {
+           let sum = nums[i] + nums[j] + nums[k];
+           
+           if (sum < 0) {
+               j++;
+           } else if (sum > 0) {
+               k--;
+           } else {
+               ans.push([nums[i], nums[j], nums[k]]);
+               j++;
+               k--;
+
+               while (j < k && nums[j] === nums[j - 1]) j++;
+               while (j < k && nums[k] === nums[k + 1]) k--;
+           }
+       }
+   }
+
+   return ans;
+};
 
 
 
@@ -1331,30 +1344,48 @@ console.log(rotateMatrix90DegOptimal([
 
 // Question No. =========================================================================================================
 
-// leader in an array (evething on the right should be smaller);
-
-// Problem link :->
-
-// brute force :-> 
-// 🤔 APPROUCH :-> linear search
-
-
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
-
+// 4 sum 
+ 
 // OPTIMAL SOLUTION :->  
 // 🤔 APPROUCH :->
 
 
+var fourSum = function(nums, target) {
+    nums.sort((a, b) => a - b);
+    let n = nums.length;
+    const ans = [];
 
+    for (let i = 0; i < n; i++) {
+        if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+        for (let j = i + 1; j < n; j++) {
+            if (j != (i + 1) && nums[j] == nums[j - 1]) continue;
+
+            let k = j + 1;
+            let l = n - 1;
+
+            while (k < l) {
+                let sum = nums[i] + nums[j] + nums[k] + nums[l];
+
+                if (sum === target) {
+                    let temp = [nums[i], nums[j], nums[k], nums[l]];
+                    ans.push(temp);
+                    k++;
+                    l--;
+
+                    while (k < l && nums[k] === nums[k - 1]) k++;
+                    while (k < l && nums[l] === nums[l + 1]) l--;
+                } else if (sum < target) {
+                    k++;
+                } else {
+                    l--;
+                }
+            }
+        }
+    }
+
+    return ans;
+};
 
 
 
@@ -1362,12 +1393,40 @@ console.log(rotateMatrix90DegOptimal([
 
 // Question No. =========================================================================================================
 
-// leader in an array (evething on the right should be smaller);
+//  merge interval
 
 // Problem link :->
 
 // brute force :-> 
-// 🤔 APPROUCH :-> linear search
+// 🤔 APPROUCH :-> check notes
+
+var merge = function(intervals) {
+    intervals.sort((a, b) => a[0] - b[0]); // Corrected sorting based on the start of each interval
+    const ans = [];
+    const n = intervals.length;
+
+    for (let i = 0; i < n; i++) {
+        let start = intervals[i][0];
+        let end = intervals[i][1];
+
+        if (ans.length && end <= ans[ans.length - 1][1]) {
+            continue;
+        }
+
+        for (let j = i + 1; j < n; j++) {
+            if (intervals[j][0] <= end) {
+                end = Math.max(end, intervals[j][1]);
+            } else {
+                break;
+            }
+        }
+
+        ans.push([start, end]);
+    }
+
+    return ans;
+};
+
 
 
 //🤓 analysis :-> ;
