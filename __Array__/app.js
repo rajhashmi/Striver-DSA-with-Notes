@@ -1335,11 +1335,6 @@ var threeSum = function(nums) {
    return ans;
 };
 
-
-
-
-
-
 // 🤓 analysis :-> 
 
 // Question No. =========================================================================================================
@@ -1427,118 +1422,48 @@ var merge = function(intervals) {
     return ans;
 };
 
-
-
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
-
-// OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
-
-
-
-
-
-
-// 🤓 analysis :-> 
-
+ 
 // Question No. =========================================================================================================
 
-// leader in an array (evething on the right should be smaller);
-
-// Problem link :->
-
-// brute force :-> 
-// 🤔 APPROUCH :-> linear search
-
-
-//🤓 analysis :-> ;
+// find the missing and repeating number
 
 // BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
+// 🤔 APPROUCH :-  using hashMap
+    function missingNumberRepeatingBetter(array){
+        let hashMap = Array.from({length : array.length+1}).fill(0);
+        for(let i = 0; i < array.length; i++){
+            hashMap[array[i]];
+        }
+        let repeating = -1, missing = -1;
+        for(let i = 1; i <=array.length; i++){
+            if(hashMap[i]==2)repeating = i;
+            else if(hashMap[i]== 0) missing = i;
 
-
-
-
+            if(repeating !== -1 && missing != -1) break;
+        }
+        return [repeating,missing]
+    }
 
 // 🤓 analysis :-> 
+// ====================================================================================
+// Maximum product Subarray 
+
 
 // OPTIMAL SOLUTION :->  
 // 🤔 APPROUCH :->
-
-
-
-
-
-
-// 🤓 analysis :-> 
-
-// Question No. =========================================================================================================
-
-// leader in an array (evething on the right should be smaller);
-
-// Problem link :->
-
-// brute force :-> 
-// 🤔 APPROUCH :-> linear search
-
-
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
-
-// OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
-
-
-
-
-
-
-// 🤓 analysis :-> 
-
-// Question No. =========================================================================================================
-
-// leader in an array (evething on the right should be smaller);
-
-// Problem link :->
-
-// brute force :-> 
-// 🤔 APPROUCH :-> linear search
-
-
-//🤓 analysis :-> ;
-
-// BETTER SOLUTION :-> 
-// 🤔 APPROUCH :-
-
-
-
-
-
-// 🤓 analysis :-> 
-
-// OPTIMAL SOLUTION :->  
-// 🤔 APPROUCH :->
-
-
-
-
-
+var maxProduct = function(nums) {
+    let n = nums.length
+    let pre  = 1;
+    let suff = 1
+    let maxSum = Number.MIN_SAFE_INTEGER;
+    for(let i = 0; i < n; i++){
+        if(pre === 0) pre = 1;
+        if(suff === 0) suff = 1;
+        pre = pre * nums[i];
+        suff = suff * nums[n-i-1];
+        maxSum = Math.max(maxSum,pre,suff)
+    }
+    return maxSum
+};
 
 // 🤓 analysis :-> 
