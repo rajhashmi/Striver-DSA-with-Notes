@@ -18,4 +18,35 @@ function lowerBound(array, target){
 }
 console.log(lowerBound([1,2,3,4,5,6,7,8],1))
 
-// Q insert
+// Q sesrch in rotated sorted array ii
+//  approuch: ->  I know this array will be rotated so I will check mid as well as first and last and identify which part will be sorted and I will search in the sorted array
+function searchInRotate(array){
+    let low = 0; 
+    let high = array.length - 1;
+    while( low <= high){
+        let mid = Math.floor((low+high)/2);
+        if(array[mid] === target) return mid;
+        if(array[low] === array[mid] && array[mid] === array[high]){
+            low = high + 1;
+            high = high - 1;
+            continue;
+        }
+        if(array[low] <= arr[mid]){
+            if(array[low] <= target && target <= array[mid]){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }else{
+            if(array[mid] <= target && array[high]){
+                low = mid + 1
+            }else{
+                high = mid - 1;
+            }
+        }
+    }
+    return false
+}
+
+
+// Q find the minimum in rotated sorted array
