@@ -50,3 +50,22 @@ function searchInRotate(array){
 
 
 // Q find the minimum in rotated sorted array
+
+// APPROUCH :-> first finding the sorted side in array if the sorted side is left then the fist element is always low of the left sorted side or if the right side is sorted then the mid will the lowest value 
+
+var findMin = function(nums) {
+    let min = Number.MAX_SAFE_INTEGER;
+    let low = 0;
+    let high = nums.length - 1;
+    while(low <= high){
+        let mid = Math.floor((low+high)/2);
+        if(nums[low] <= nums[mid]){
+            min = Math.min(min,nums[low]);
+            low = mid+1;
+        }else{
+            high = mid - 1;
+            min = Math.min(min,nums[mid])
+        }
+    }
+    return min
+};
