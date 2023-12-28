@@ -16,7 +16,7 @@ function lowerBound(array, target){
     }
     return ans
 }
-console.log(lowerBound([1,2,3,4,5,6,7,8],1))
+console.log(lowerBound([1,2,3,4,5,6,7,8],1));
 
 // Q sesrch in rotated sorted array ii
 //  approuch: ->  I know this array will be rotated so I will check mid as well as first and last and identify which part will be sorted and I will search in the sorted array
@@ -68,4 +68,38 @@ var findMin = function(nums) {
         }
     }
     return min
+};
+
+
+// single element in sorted Array
+
+// APPROUCH :-> By observing the above image, we can clearly notice a striking distinction between the index sequences of the left and right halves of the single element in the array. 
+// The index sequence of the duplicate numbers in the left half is always (even, odd). That means one of the following conditions will be satisfied if we are in the left half:
+// If the current index is even, the element at the next odd index will be the same as the current element.
+// Similarly, If the current index is odd, the element at the preceding even index will be the same as the current element.
+
+// // 2. The index sequence of the duplicate numbers in the right half is always (odd, even). That means one of the following conditions will be satisfied if we are in the right half:
+// If the current index is even, the element at the preceding odd index will be the same as the current element.
+// Similarly, If the current index is odd, the element at the next even index will be the same as the current element.
+// Now, we can easily identify the left and right halves, just by checking the sequence of the current index, i, like the following:
+
+var singleNonDuplicate = function(nums) {
+    let low = 0;
+    let high = nums.length - 1;
+
+    while (low < high) {
+        let mid = Math.floor((low + high) / 2);
+
+        if (mid % 2 === 1) {
+            mid--;
+        }
+
+        if (nums[mid] !== nums[mid + 1]) {
+            high = mid;
+        } else {
+            low = mid + 2;
+        }
+    }
+
+    return nums[low];
 };

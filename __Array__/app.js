@@ -1470,7 +1470,7 @@ var maxProduct = function(nums) {
 
 // is number prime Optimal solution
 
-
+// approuch 
 
 function isPrime(num){
     if(num == 2) return true;
@@ -1486,3 +1486,20 @@ function isPrime(num){
    }
    return[ true,counter]
 } 
+
+
+
+function removeABC(string) {
+    let newstring = "";
+  
+    for (let i = 0; i < string.length; i++) {
+      if ("abc" !== string[i]) {
+        newstring += string[i];
+      }
+    }
+    return newstring;
+  }
+  
+  // console.log(removeABC("This might be a bit hard"));
+  // console.log(removeABC("hello world!"));
+  // console.log(removeABC(""));
