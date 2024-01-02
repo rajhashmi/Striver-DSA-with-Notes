@@ -1487,19 +1487,3 @@ function isPrime(num){
    return[ true,counter]
 } 
 
-
-
-function removeABC(string) {
-    let newstring = "";
-  
-    for (let i = 0; i < string.length; i++) {
-      if ("abc" !== string[i]) {
-        newstring += string[i];
-      }
-    }
-    return newstring;
-  }
-  
-  // console.log(removeABC("This might be a bit hard"));
-  // console.log(removeABC("hello world!"));
-  // console.log(removeABC(""));
