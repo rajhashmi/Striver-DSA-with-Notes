@@ -144,3 +144,37 @@ var mySqrt = function(x) {
     return high;
  
  };
+
+ // koko eating Bananas
+
+ var minEatingSpeed = function(piles, h) {
+    let low = 1;
+    let high = findMax(piles);
+    while(low <= high){
+        let mid = Math.floor((low + high) / 2);
+        let totalH = calculateTotalHours(piles, mid)
+        if(totalH <= h){
+            high = mid -1;
+        }else{
+            low = mid + 1;
+        }
+    }
+    return low
+};
+
+function findMax(arr){
+    let max = -Infinity;
+    let n = arr.length;
+    for(let i = 0; i < n; i++){
+        max = Math.max(max,arr[i])
+    }
+    return max
+}
+function calculateTotalHours(arr, perHr){
+    let totalH = 0;
+    let n = arr.length;
+    for(let i = 0; i < n; i++){
+        totalH += Math.ceil(arr[i] / perHr);
+    }
+    return totalH
+}
