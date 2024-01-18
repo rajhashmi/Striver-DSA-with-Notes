@@ -178,3 +178,112 @@ function calculateTotalHours(arr, perHr){
     }
     return totalH
 }
+
+// Capacity To Ship Packages Within D Days
+
+//Input: weights = [1,2,3,4,5,6,7,8,9,10], days = 5
+// Output: 15
+
+// we have to write a logic that the ship can transport all array element in 5 days in least number of weight
+
+// approuch we know that max number in an array  will be the min weight. how..? cuz if we take 1 weight on frist day then then we connot take 2 on the seconday cuz the weight capasity of the ship is one this is the reason we take max number of array which is 10 so the max number will we the min weight capacity and what about the max capacity....? that will be the sum of all element 
+
+
+function shipWithinDays(weight,days){
+    let min = Math.max(...weight);
+    let max = weight.reduce((acum,curr) => acum + curr ,0);
+    while(min <= max){
+        const mid = Math.floor(( min + max ) / 2);
+        if(finday(weight,mid) > days){
+            min = mid + 1;
+        }else{
+            max = mid;
+        }
+    }
+    return min
+}
+
+function finday(weight,cap){
+    let day = 1;
+    let load = 0;
+    let n = weight.length
+    for(let i = 0; i < n; i++){
+        if(load + weight[i] > cap){
+            day += 1;
+        }else[
+            load += weight[i]
+        ]
+    }
+    return day
+}
+
+// ==========================================================================
+
+// find Kth missing Number;
+
+// APPROUCH : -> 
+
+var findKthPositive = function(arr, k) {
+    let low = 0;
+    let high = arr.length-1;
+    while(low <= high){
+        let mid = Math.floor((low + high) / 2);
+        let missingPos = arr[mid]  - (mid + 1); // this will give us how many number are missing in an array 
+        if(missingPos < k){ // if missing number is smaller then the k which is 5 then low will take the place of
+            low = mid + 1
+        }else{
+            high = mid - 1
+        }
+    }
+    return k + high + 1  
+};
+
+
+// Aggressive Cows 
+
+// we have to find the minimum distance to keep cows which will the max min number 
+
+function AggressiveCows(stall, k){
+    let n = stall.length
+    stall.sort((a, b) => a - b);
+
+    let limit = stall[0] - stall[n-1];
+    for(let i = 1; i < limit; i++){
+        if(!canWePlace(stall, i, k)){
+            return i - 1;
+        }
+    }
+    return limit
+}
+
+function canWePlace(stall, distance, cows){
+    let n = stall.length; // size of array
+    let cntCows = 1;// no. of cows placed
+    let last = stall[0]; // position of last placed cow
+    for(let i = 0; i < n; i++ ){
+        if(stall[i] - last >= distance){
+            cntCows++; // place next cow
+            last = stall[i]; // update the last location
+        }
+        if(cntCows >= cows) return true;
+    }
+    return false;
+}
+
+// using binary search 
+
+function AggressiveCows(stall, k){
+    let n = stall.length
+    stall.sort((a, b) => a - b);
+
+    let low = 1; 
+    let high = stall[n-1] - stall[0];
+    while( low <= high){
+        const mid = Math.floor((low + high) / 2);
+        if(canWePlace(stall, mid ,k)){
+            low = mid + 1
+        }else{
+            high = mid -1;
+        }
+    }
+}
